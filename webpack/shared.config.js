@@ -26,9 +26,14 @@ module.exports = {
       }
     ]
   },
+  postcss: [
+    autoprefixer({
+      browsers: ['> 0.5% in JP']
+    })
+  ],
   plugins: [
     new CommonsChunkPlugin({
-      name: ['app', 'vendor'],
+      name: ['vendor'],
       minChunks: Infinity
     })
   ]
