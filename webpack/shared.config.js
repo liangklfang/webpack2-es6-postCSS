@@ -1,4 +1,5 @@
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
 
@@ -17,6 +18,17 @@ module.exports = {
         use: ['babel-loader', 'eslint-loader']
       },
       {
+        test: /\.(css|scss)$/,
+        loader: ExtractTextPlugin.extract({
+          fallbackLoader: 'style-loader',
+          loader: [
+            'css-loader',
+            'sass-loader',
+            'postcss-loader'
+          ]
+        })
+      },
+      {
         test: /\.json$/,
         loader: 'json'
       },
@@ -26,11 +38,6 @@ module.exports = {
       }
     ]
   },
-  postcss: [
-    autoprefixer({
-      browsers: ['> 0.5% in JP']
-    })
-  ],
   plugins: [
     new CommonsChunkPlugin({
       name: ['vendor'],
